@@ -81,11 +81,30 @@
     backdrop-filter: blur(10px);
 }
 
-.textInput:focus {
-    outline: none;
-    border-color: rgba(255, 255, 255, 0.6);
-    background: white;
-    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
+.activeButton {
+    padding: 16px 20px;
+    border: 2px solid rgba(226, 226, 226, 0.2);
+    border-radius: 12px;
+    background: rgba(200, 200, 200, 0.95);
+    font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    transform: scale(0.99);
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.languages{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+
+.languages button{
+    flex: 1;
 }
 
 .textInput::placeholder {

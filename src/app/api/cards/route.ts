@@ -8,14 +8,14 @@ const openai = new OpenAI({
 
 export async function POST(req: Request) {
     try {
-        const { count, theme } = await req.json();
+        const { count, theme, language } = await req.json();
         const completion = await openai.chat.completions.create({
             model: "openai/gpt-4o",
             messages: [
                 {
                     role: "user",
-                    content: `Generate ${count} French words with English translations on the topic of ${theme}. Return ONLY valid JSON array, like this:[
-          { "french": "bonjour", "english": "hello" }, ...] Do NOT add any explanations, text, or markdown (no json, no comments).`,
+                    content: `Generate ${count} French words with ${language} translations on the topic of ${theme}. Return ONLY valid JSON array, like this:[
+                    { "french": "bonjour", "${language}": "word in ${language}" }, ...] Do NOT add any explanations, text, or markdown (no json, no comments).`,
                 },
             ],
             max_tokens: 300,

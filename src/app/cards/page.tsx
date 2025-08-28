@@ -12,6 +12,7 @@ export default function Cards() {
   const [loading, setLoading] = useState(false)
   const cardLenght = useSelector((state: RootState) => state.cards.count);
   const cardTheme = useSelector((state: RootState) => state.cards.theme);
+  const cardLanguage = useSelector((state: RootState) => state.cards.language);
 
   useEffect(() => {
     const fetchResponse = async () => {
@@ -19,7 +20,7 @@ export default function Cards() {
       const res = await fetch("/api/cards", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ count: cardLenght, theme: cardTheme }),
+        body: JSON.stringify({ count: cardLenght, theme: cardTheme, language: cardLanguage }),
       });
       const data = await res.json();
       setResponse(data);
@@ -47,7 +48,7 @@ export default function Cards() {
           <div className={styles.cards}>
             {response.map((word: any, index: number) => (
               <div key={index}>
-                <Card text={word.french} translateText={word.english} />
+                <Card text={word.french} translateText={word[cardLanguage]} />
               </div>
             ))}
           </div>
