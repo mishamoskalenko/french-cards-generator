@@ -1,21 +1,33 @@
 .flipCard {
-  border-radius: 24px;
   position: relative;
   width: 300px;
   height: 220px;
-  transform-style: preserve-3d;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
   font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 600;
   color: #1a1a1a;
   font-size: 28px;
   user-select: none;
+  -webkit-user-select: none;
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flipCardInner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-transition: -webkit-transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  border-radius: 24px;
 }
 
 .flipCardFront,
 .flipCardBack {
-  transition: transform 0.8s cubic-bezier(0.275, 0.885, 0.32, 1.275);
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   position: absolute;
   top: 0;
@@ -28,7 +40,6 @@
   font-size: 28px;
   border-radius: 24px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(10px);
   padding: 24px;
   text-align: center;
   line-height: 1.4;
@@ -38,21 +49,21 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 2;
 }
 
 .flipCardBack {
   transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
-.flipCard.flipped .flipCardBack {
-  transform: rotateX(0deg);
-}
-
-.flipCard.flipped .flipCardFront {
-  transform: rotateX(-180deg);
+.flipCardInner.flipped {
+  transform: rotateX(180deg);
+  -webkit-transform: rotateX(180deg);
 }
 
 .sound {
@@ -68,11 +79,16 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
   font-size: 14px;
   font-weight: 600;
   color: white;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   background: rgba(255, 255, 255, 0.35);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
+
+.flipCardInner.flipped .sound {
+  opacity: 0;
+  pointer-events: none;
 }

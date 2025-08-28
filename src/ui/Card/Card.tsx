@@ -23,16 +23,15 @@ export const Card = (props: CardProps) => {
     }
 
     return (
-        <div
-            className={`${styles.flipCard} ${flipped ? styles.flipped : ''}`}
-            onClick={handleClick}
-        >
-            <div className={styles.flipCardFront}>
-                {text}
-                <button className={styles.sound} onClick={playSound}>🔊</button>
-            </div>
-            <div className={styles.flipCardBack}>
-                {translateText}
+        <div className={styles.flipCard} onClick={handleClick}>
+            <div className={`${styles.flipCardInner} ${flipped ? styles.flipped : ''}`}>
+                <div className={styles.flipCardFront}>
+                    {text}
+                    <button className={styles.sound} onClick={playSound}>🔊</button>
+                </div>
+                <div className={styles.flipCardBack}>
+                    {translateText}
+                </div>
             </div>
         </div>
     );
