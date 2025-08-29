@@ -102,9 +102,9 @@
     gap: 5px;
 }
 
-
 .languages button{
     flex: 1;
+    min-width: 110px;
 }
 
 .textInput::placeholder {

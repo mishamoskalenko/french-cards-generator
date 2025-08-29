@@ -10,28 +10,44 @@ import Link from 'next/link';
 export default function Cards() {
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false)
-  const cardLenght = useSelector((state: RootState) => state.cards.count);
+  const [error, setError] = useState(false)
+  const cardLength = useSelector((state: RootState) => state.cards.count);
   const cardTheme = useSelector((state: RootState) => state.cards.theme);
   const cardLanguage = useSelector((state: RootState) => state.cards.language);
 
   useEffect(() => {
     const fetchResponse = async () => {
-      setLoading(true);
-      const res = await fetch("/api/cards", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ count: cardLenght, theme: cardTheme, language: cardLanguage }),
-      });
-      const data = await res.json();
-      setResponse(data);
-      setLoading(false);
+      try {
+        setError(false);
+        setLoading(true);
+        const res = await fetch("/api/cards", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ count: cardLength, theme: cardTheme, language: cardLanguage }),
+        });
+
+        if (!res.ok) {
+          setError(true)
+          return;
+        }
+
+        const data = await res.json();
+        console.log(data);
+        setResponse(data);
+      }
+      finally {
+        setLoading(false);
+      }
     };
     fetchResponse();
-  }, [cardLenght, cardTheme]);
+  }, [cardLength, cardTheme, cardLanguage]);
 
   return (
     <div className={styles.page}>
       <Link className={styles.link} href="/">Go back</Link>
+      {error &&
+        <p>Error has occured</p>
+      }
       {loading ?
         (
           <div className={styles.loadingContainer}>

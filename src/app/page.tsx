@@ -37,7 +37,7 @@ export default function Cards() {
   return (
     <div className={styles.page}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Hi! Welcome to the French Card generator</h1>
+        <h1 className={styles.title}>Hi! Welcome to the French Cards generator</h1>
         <div className={styles.inputGroup}>
           <label className={styles.label}>Choose cards count</label>
           <div className={styles.rangeContainer}>
@@ -47,7 +47,7 @@ export default function Cards() {
               value={countValue}
               onChange={handleChangeCount}
               min="1"
-              max="10"
+              max="20"
             />
             <div className={styles.countDisplay}>{countValue}</div>
           </div>
@@ -80,6 +80,7 @@ export default function Cards() {
             <button type="submit" className={styles.link}>Go</button>
           </div>
         </form>
+        <p className={styles.label}>AI-generated content may contain errors. Please verify the information</p>
       </div>
     </div>
   );
