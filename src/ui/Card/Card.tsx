@@ -12,7 +12,13 @@ export const Card = (props: CardProps) => {
     const { text, translateText } = props;
 
     const [flipped, setFlipped] = useState(false);
-    const handleClick = () => setFlipped(!flipped);
+    const [learned, setLearned] = useState(false);
+
+    const handleFlip = () => setFlipped(!flipped);
+    const handleLearn = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        setLearned(!learned);
+    }
 
     const playSound = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
@@ -23,11 +29,12 @@ export const Card = (props: CardProps) => {
     }
 
     return (
-        <div className={styles.flipCard} onClick={handleClick}>
-            <div className={`${styles.flipCardInner} ${flipped ? styles.flipped : ''}`}>
-                <div className={styles.flipCardFront}>
+        <div className={styles.flipCard} onClick={handleFlip}>
+            <div className={`${styles.flipCardInner} ${flipped ? styles.flipped : ''} ${learned ? styles.learned : ''}`}>
+                <div className={`${styles.flipCardFront} ${learned ? styles.learned : ''}`}>
                     {text}
                     <button className={styles.sound} onClick={playSound}>🔊</button>
+                    <button className={styles.learnedText} onClick={handleLearn}>{learned ? "✅" : "❌"}</button>
                 </div>
                 <div className={styles.flipCardBack}>
                     {translateText}

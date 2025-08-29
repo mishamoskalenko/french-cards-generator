@@ -37,7 +37,7 @@ export default function Cards() {
   return (
     <div className={styles.page}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Hi! Welcome to the French Cards generator</h1>
+        <h1 className={styles.title}>Hi! Welcome to the French Cards Generator</h1>
         <div className={styles.inputGroup}>
           <label className={styles.label}>Choose cards count</label>
           <div className={styles.rangeContainer}>
@@ -68,19 +68,19 @@ export default function Cards() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
-            <label className={styles.label}>Write a topic for the cards</label>
+            <label className={styles.label}>Choose a topic or type of words</label>
             <input
               required
               type="text"
               className={styles.textInput}
               value={themeValue}
               onChange={handleChangeTheme}
-              placeholder="Animals, Food, Travel..."
+              placeholder="verbs, animals, food, travel..."
             />
             <button type="submit" className={styles.link}>Go</button>
           </div>
         </form>
-        <p className={styles.label}>AI-generated content may contain errors. Please verify the information</p>
+        <p className={styles.labelAi}>AI-generated content may contain errors. Please verify the information</p>
       </div>
     </div>
   );
