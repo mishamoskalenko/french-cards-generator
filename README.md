@@ -40,19 +40,12 @@ npm run dev
 Open http://localhost:3000 in your browser.
 
 
-### npm Scripts
+### npm scripts
 - `dev`: start local development server
 - `build`: production build
 - `start`: start production server
 
 ---
-
-## Tech Stack
-- Next.js (App Router), React 19
-- TypeScript
-- Redux Toolkit, React Redux
-- groq-sdk (model: `openai/gpt-oss-120b`)
-- @vercel/analytics
 
 ## Installation
 ```bash
@@ -64,51 +57,4 @@ npm install
 npm run build
 npm start
 ```
-
-## API
-`POST /api/cards`
-
-Request body:
-```json
-{
-  "count": 10,
-  "theme": "food",
-  "language": "English"
-}
-```
-
-Success response (200):
-```json
-[
-  { "french": "bonjour", "English": "hello" }
-]
-```
-
-## Project Structure
-```
-src/
-  app/
-    api/cards/route.ts
-    page.tsx
-    cards/page.tsx
-    layout.tsx
-  store/
-    features/cards/
-    Providers.js
-    store.ts
-  ui/Card/
-```
-
-## Deployment
-- Deploy to Vercel
-- Set `GROQ_API_KEY` in project environment variables
-
-## Troubleshooting
-- Empty/error response: check `GROQ_API_KEY`, try a smaller `count`, or another `theme`
-- No speech: verify browser support for Web Speech API
-
-## Acknowledgements
-- Next.js, React, Redux Toolkit
-- Groq
-- Web Speech API
 
