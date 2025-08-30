@@ -1,11 +1,11 @@
 {
   "home": {
-    "title": "Hi! Willkommen beim Französische-Karten-Generator",
+    "title": "Willkommen beim Französische-Karten-Generator",
     "viewLearned": "Gelernte Wörter ansehen",
     "chooseCount": "Anzahl der Karten wählen",
     "selectLanguage": "Übersetzungssprache auswählen",
-    "chooseTopic": "Ein Thema oder Wortart wählen",
-    "placeholder": "Verben, Tiere, Essen, Reisen...",
+    "chooseTopic": "Du kannst ein Thema angeben oder kurz beschreiben, was du vertiefen möchtest.",
+    "placeholder": "Zum Beispiel: Wörter in der Vergangenheitsform, Reisen, Essen",
     "go": "Los",
     "aiNote": "KI-generierte Inhalte können Fehler enthalten. Bitte überprüfe die Informationen"
   },

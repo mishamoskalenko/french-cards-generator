@@ -1,11 +1,11 @@
 {
   "home": {
-    "title": "Hi! Welcome to the French Cards Generator",
+    "title": "Welcome to the French Cards Generator",
     "viewLearned": "View learned words",
     "chooseCount": "Choose cards count",
     "selectLanguage": "Select the translation language",
-    "chooseTopic": "Choose a topic or type of words",
-    "placeholder": "verbs, animals, food, travel...",
+    "chooseTopic": "You can enter a topic or briefly describe what you want to work on.",
+    "placeholder": "For example: words in the past tense, travel, food",
     "go": "Go",
     "aiNote": "AI-generated content may contain errors. Please verify the information"
   },

@@ -1,11 +1,11 @@
 {
   "home": {
-    "title": "Salut ! Bienvenue dans le Générateur de Cartes de Français",
+    "title": "Bienvenue dans le Générateur de Cartes de Français",
     "viewLearned": "Voir les mots appris",
     "chooseCount": "Choisissez le nombre de cartes",
     "selectLanguage": "Sélectionnez la langue de traduction",
-    "chooseTopic": "Choisissez un thème ou un type de mots",
-    "placeholder": "verbes, animaux, nourriture, voyage...",
+    "chooseTopic": "Vous pouvez écrire un thème ou décrire brièvement ce que vous souhaitez approfondir.",
+    "placeholder": "Par exemple : mots au passé, voyages, nourriture",
     "go": "Aller",
     "aiNote": "Le contenu généré par l'IA peut contenir des erreurs. Veuillez vérifier les informations"
   },
