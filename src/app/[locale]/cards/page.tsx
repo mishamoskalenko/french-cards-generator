@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import { Card } from '@/ui/Card/Card';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store/store';
-import Link from 'next/link';
+import { RootState } from '../../../store/store';
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function Cards() {
+  const t = useTranslations();
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
@@ -44,9 +46,9 @@ export default function Cards() {
 
   return (
     <div className={styles.page}>
-      <Link className={styles.link} href="/">Go back</Link>
+      <Link className={styles.link} href="/">{t('cards.goBack')}</Link>
       {error &&
-        <p>Error has occured</p>
+        <p>{t('cards.error')}</p>
       }
       {loading ?
         (
@@ -54,7 +56,7 @@ export default function Cards() {
             <div className={styles.loadingCard}>
               <div className={styles.loadingSpinner}></div>
               <div className={styles.loadingCardText}>
-                Generating your cards...
+                {t('cards.generating')}
               </div>
             </div>
           </div>

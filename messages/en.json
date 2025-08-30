@@ -1,0 +1,31 @@
+{
+  "home": {
+    "title": "Hi! Welcome to the French Cards Generator",
+    "viewLearned": "View learned words",
+    "chooseCount": "Choose cards count",
+    "selectLanguage": "Select the translation language",
+    "chooseTopic": "Choose a topic or type of words",
+    "placeholder": "verbs, animals, food, travel...",
+    "go": "Go",
+    "aiNote": "AI-generated content may contain errors. Please verify the information"
+  },
+  "learned": {
+    "goBack": "Go back",
+    "reset": "Reset progress",
+    "loading": "Loading your cards...",
+    "empty": "You haven’t learned any words yet",
+    "knowTranslation": "you should know the translation :)"
+  },
+  "cards": {
+    "goBack": "Go back",
+    "error": "Error has occured",
+    "generating": "Generating your cards..."
+  },
+  "lang": {
+    "en": "English",
+    "es": "Español",
+    "de": "Deutsch",
+    "uk": "Українська",
+    "fr": "Français"
+  }
+}

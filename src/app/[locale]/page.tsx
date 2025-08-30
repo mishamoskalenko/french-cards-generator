@@ -1,12 +1,14 @@
 "use client"
 
 import styles from "./page.module.css";
-import { setCount, setLanguage, setTheme } from "../store/features/cards/cardsSlice";
+import { setCount, setLanguage, setTheme } from "../../store/features/cards/cardsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store/store";
-import { useRouter } from "next/navigation";
+import { AppDispatch, RootState } from "../../store/store";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Image from "next/image";
+import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+
 
 export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,13 +16,16 @@ export default function Home() {
   const countValue = useSelector((state: RootState) => state.cards.count);
   const themeValue = useSelector((state: RootState) => state.cards.theme);
   const languageValue = useSelector((state: RootState) => state.cards.language);
+  const router = useRouter();
+  const pathname = usePathname();
+  const locale = useLocale();
+  const t = useTranslations();
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem("language") || "English";
     dispatch(setLanguage(savedLanguage));
     setIsLoaded(true)
   }, [])
-
 
   const handleChangeCount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const number = Number(e.target.value);
@@ -36,7 +41,12 @@ export default function Home() {
     localStorage.setItem("language", lang);
   };
 
-  const router = useRouter();
+  const toggleLocale = () => {
+    const locales = ["en", "fr", "es", "de", "uk"];
+    const currentIndex = locales.indexOf(locale);
+    const nextLocale = locales[(currentIndex + 1) % locales.length];
+    router.replace(pathname, { locale: nextLocale });
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,10 +62,14 @@ export default function Home() {
   return (
     <div className={styles.page}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Hi! Welcome to the French Cards Generator</h1>
-        <Link href="/learned" className={styles.storeLink}>View learned words</Link>
+        <button className={styles.language} onClick={toggleLocale}>
+          <Image src="/language.svg" width={30} height={30} alt="language" />
+          <span className={styles.languageText}>{t(`lang.${locale}`)}</span>
+        </button>
+        <h1 className={styles.title}>{t('home.title')}</h1>
+        <Link href="/learned" className={styles.learnedLink}>{t('home.viewLearned')}</Link>
         <div className={styles.inputGroup}>
-          <label className={styles.label}>Choose cards count</label>
+          <label className={styles.label}>{t('home.chooseCount')}</label>
           <div className={styles.rangeContainer}>
             <input
               type="range"
@@ -69,7 +83,7 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.inputGroup}>
-          <label className={styles.label}>Select the translation language</label>
+          <label className={styles.label}>{t('home.selectLanguage')}</label>
           <div className={styles.languages}>
             {["English", "Українська", "Deutsch", "Español"].map((lang) => (
               <button
@@ -84,19 +98,19 @@ export default function Home() {
         </div>
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
-            <label className={styles.label}>Choose a topic or type of words</label>
+            <label className={styles.label}>{t('home.chooseTopic')}</label>
             <input
               required
               type="text"
               className={styles.textInput}
               value={themeValue}
               onChange={handleChangeTheme}
-              placeholder="verbs, animals, food, travel..."
+              placeholder={t('home.placeholder')}
             />
-            <button type="submit" className={styles.link}>Go</button>
+            <button type="submit" className={styles.link}>{t('home.go')}</button>
           </div>
         </form>
-        <p className={styles.labelAi}>AI-generated content may contain errors. Please verify the information</p>
+        <p className={styles.labelAi}>{t('home.aiNote')}</p>
       </div>
     </div>
   );

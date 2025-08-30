@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import { Card } from '@/ui/Card/Card';
-import Link from 'next/link';
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function Learned() {
+  const t = useTranslations();
   const [learnedArray, setLearnedArray] = useState<any[]>([]);
   const [loading, setLoading] = useState(true)
 
@@ -20,17 +22,22 @@ export default function Learned() {
     setLoading(false);
   }, []);
 
+  const resetProgress = () => {
+    localStorage.removeItem("learnedCards");
+    setLearnedArray([]);
+  }
 
   return (
     <div className={styles.page}>
-      <Link className={styles.link} href="/">Go back</Link>
+      <Link className={styles.link} href="/">{t('learned.goBack')}</Link>
+      {learnedArray.length > 0 && <button className={styles.progress} onClick={resetProgress}>{t('learned.reset')}</button>}
       {loading ?
         (
           <div className={styles.loadingContainer}>
             <div className={styles.loadingCard}>
               <div className={styles.loadingSpinner}></div>
               <div className={styles.loadingCardText}>
-                Loading your cards...
+                {t('learned.loading')}
               </div>
             </div>
           </div>
@@ -42,13 +49,13 @@ export default function Learned() {
               (
                 learnedArray.map((word: any, index: number) => (
                   <div key={index}>
-                    <Card text={word} translateText="you should know the translation :)" />
+                    <Card text={word} translateText={t('learned.knowTranslation')} />
                   </div>
                 ))
               )
               :
               (
-                <p className={styles.warning}>You haven’t learned any words yet</p>
+                <p className={styles.warning}>{t('learned.empty')}</p>
               )
             }
           </div>
