@@ -5,12 +5,22 @@ import { setCount, setLanguage, setTheme } from "../store/features/cards/cardsSl
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
-export default function Cards() {
+export default function Home() {
   const dispatch = useDispatch<AppDispatch>();
+  const [isLoaded, setIsLoaded] = useState(false);
   const countValue = useSelector((state: RootState) => state.cards.count);
   const themeValue = useSelector((state: RootState) => state.cards.theme);
   const languageValue = useSelector((state: RootState) => state.cards.language);
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem("language") || "English";
+    dispatch(setLanguage(savedLanguage));
+    setIsLoaded(true)
+  }, [])
+
 
   const handleChangeCount = (e: React.ChangeEvent<HTMLInputElement>) => {
     const number = Number(e.target.value);
@@ -23,6 +33,7 @@ export default function Cards() {
 
   const handleChangeLanguage = (lang: string) => {
     dispatch(setLanguage(lang));
+    localStorage.setItem("language", lang);
   };
 
   const router = useRouter();
@@ -34,10 +45,15 @@ export default function Cards() {
     }
   };
 
+  if (!isLoaded) {
+    return null
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.card}>
         <h1 className={styles.title}>Hi! Welcome to the French Cards Generator</h1>
+        <Link href="/learned" className={styles.storeLink}>View learned words</Link>
         <div className={styles.inputGroup}>
           <label className={styles.label}>Choose cards count</label>
           <div className={styles.rangeContainer}>

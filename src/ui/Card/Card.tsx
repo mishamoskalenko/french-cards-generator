@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './Card.module.css';
 
 interface CardProps {
@@ -17,8 +17,32 @@ export const Card = (props: CardProps) => {
     const handleFlip = () => setFlipped(!flipped);
     const handleLearn = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        setLearned(!learned);
+        const newLearned = !learned;
+        setLearned(newLearned);
+
+        const stored = localStorage.getItem("learnedCards");
+        let learnedArray: string[] = stored ? JSON.parse(stored) : [];
+
+        if (newLearned) {
+            if (!learnedArray.includes(text)) {
+                learnedArray.push(text);
+            }
+        } 
+        else {
+            learnedArray = learnedArray.filter(item => item !== text);
+        }
+
+        localStorage.setItem("learnedCards", JSON.stringify(learnedArray));
     }
+
+    useEffect(() => {
+        const stored = localStorage.getItem("learnedCards");
+        const learnedArray: string[] = stored ? JSON.parse(stored) : [];
+
+        if (learnedArray.includes(text)) {
+            setLearned(true);
+        }
+    }, [text]);
 
     const playSound = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();

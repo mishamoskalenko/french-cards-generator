@@ -21,6 +21,15 @@
     gap: 24px;
 }
 
+@media(max-width: 430px){
+    .page{
+        padding: 15px;
+    }
+    .card{
+        padding: 15px 20px;
+    }
+}
+
 .title {
     text-align: center;
     font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -102,19 +111,25 @@
     color: #333;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
-    transform: scale(0.99);
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .languages{
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 5px;
 }
 
 .languages button{
     flex: 1;
     min-width: 110px;
+    cursor: pointer;
+}
+
+.languages button:hover{
+    flex: 1;
+    min-width: 110px;
+    cursor: pointer;
 }
 
 .textInput::placeholder {
@@ -176,4 +191,28 @@
     color: #667eea;
     align-self: center;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    user-select: none;
+}
+
+.storeLink{
+    background: rgba(255, 255, 255, 0.95);
+    color: #667eea;
+    text-align: center;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border: none;
+    cursor: pointer;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.storeLink:hover {
+    background: rgb(219, 219, 219);
+    color: #5a67d8;
 }
