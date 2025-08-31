@@ -5,16 +5,19 @@
     "chooseCount": "Choisissez le nombre de cartes",
     "selectLanguage": "Sélectionnez la langue de traduction",
     "chooseTopic": "Vous pouvez écrire un thème ou décrire brièvement ce que vous souhaitez approfondir.",
-    "placeholder": "Par exemple : mots au passé, voyages, nourriture",
+    "placeholder": "mots au passé, voyages, nourriture",
     "go": "Aller",
-    "aiNote": "Le contenu généré par l'IA peut contenir des erreurs. Veuillez vérifier les informations"
+    "aiNote": "Le contenu généré par l'IA peut contenir des erreurs. Veuillez vérifier les informations",
+    "repeatNote": "L’IA n’utilisera que vos 200 derniers mots appris afin d’éviter les répétitions"
   },
   "learned": {
     "goBack": "Retour",
     "reset": "Réinitialiser la progression",
     "loading": "Chargement de vos cartes...",
     "empty": "Vous n'avez pas encore appris de mots",
-    "knowTranslation": "vous devriez connaître la traduction :)"
+    "knowTranslation": "vous devriez connaître la traduction :)",
+    "count": "Vous avez appris : {count, plural, one {# mot} other {# mots}} !",
+    "confirmReset": "Êtes-vous sûr ?"
   },
   "cards": {
     "goBack": "Retour",

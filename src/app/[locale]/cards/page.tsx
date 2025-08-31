@@ -17,15 +17,18 @@ export default function Cards() {
   const cardTheme = useSelector((state: RootState) => state.cards.theme);
   const cardLanguage = useSelector((state: RootState) => state.cards.language);
 
+
   useEffect(() => {
     const fetchResponse = async () => {
       try {
         setError(false);
         setLoading(true);
+        const stored = typeof window !== "undefined" ? localStorage.getItem("learnedCards") : null;
+        const cardStorage = stored ? JSON.parse(stored).slice(-200) : [];
         const res = await fetch("/api/cards", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ count: cardLength, theme: cardTheme, language: cardLanguage }),
+          body: JSON.stringify({ count: cardLength, theme: cardTheme, language: cardLanguage, storage: cardStorage }),
         });
 
         if (!res.ok) {

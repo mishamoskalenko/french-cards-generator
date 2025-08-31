@@ -5,16 +5,19 @@
     "chooseCount": "Anzahl der Karten wählen",
     "selectLanguage": "Übersetzungssprache auswählen",
     "chooseTopic": "Du kannst ein Thema angeben oder kurz beschreiben, was du vertiefen möchtest.",
-    "placeholder": "Zum Beispiel: Wörter in der Vergangenheitsform, Reisen, Essen",
+    "placeholder": "Wörter in der Vergangenheitsform, Reisen, Essen",
     "go": "Los",
-    "aiNote": "KI-generierte Inhalte können Fehler enthalten. Bitte überprüfe die Informationen"
+    "aiNote": "KI-generierte Inhalte können Fehler enthalten. Bitte überprüfe die Informationen",
+    "repeatNote": "Die KI verwendet nur deine letzten 200 gelernten Wörter, um Wiederholungen zu vermeiden"
   },
   "learned": {
     "goBack": "Zurück",
     "reset": "Fortschritt zurücksetzen",
     "loading": "Deine Karten werden geladen...",
     "empty": "Du hast noch keine Wörter gelernt",
-    "knowTranslation": "Du solltest die Übersetzung kennen :)"
+    "knowTranslation": "Du solltest die Übersetzung kennen :)",
+    "count": "Du hast gelernt: {count, plural, one {# Wort} other {# Wörter}}!",
+    "confirmReset": "Bist du sicher?"
   },
   "cards": {
     "goBack": "Zurück",

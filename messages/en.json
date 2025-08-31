@@ -5,16 +5,19 @@
     "chooseCount": "Choose cards count",
     "selectLanguage": "Select the translation language",
     "chooseTopic": "You can enter a topic or briefly describe what you want to work on.",
-    "placeholder": "For example: words in the past tense, travel, food",
+    "placeholder": "words in the past tense, travel, food",
     "go": "Go",
-    "aiNote": "AI-generated content may contain errors. Please verify the information"
+    "aiNote": "AI-generated content may contain errors. Please verify the information",
+    "repeatNote": "AI will only use your last 200 learned words to avoid repetitions"
   },
   "learned": {
     "goBack": "Go back",
     "reset": "Reset progress",
     "loading": "Loading your cards...",
     "empty": "You haven’t learned any words yet",
-    "knowTranslation": "you should know the translation :)"
+    "knowTranslation": "you should know the translation :)",
+    "count": "You have learned: {count, plural, one {# word} other {# words}}!",
+    "confirmReset": "Are you sure?"
   },
   "cards": {
     "goBack": "Go back",

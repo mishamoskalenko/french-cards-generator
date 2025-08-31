@@ -5,16 +5,19 @@
     "chooseCount": "Elige la cantidad de tarjetas",
     "selectLanguage": "Selecciona el idioma de traducción",
     "chooseTopic": "Puedes escribir un tema o describir brevemente lo que quieres estudiar.",
-    "placeholder": "Por ejemplo: palabras en tiempo pasado, viajes, comida",
+    "placeholder": "palabras en tiempo pasado, viajes, comida",
     "go": "Ir",
-    "aiNote": "El contenido generado por IA puede contener errores. Verifica la información"
+    "aiNote": "El contenido generado por IA puede contener errores. Verifica la información",
+    "repeatNote": "La IA usará solo tus últimas 200 palabras aprendidas para evitar repeticiones"
   },
   "learned": {
     "goBack": "Volver",
     "reset": "Restablecer progreso",
     "loading": "Cargando tus tarjetas...",
     "empty": "Aún no has aprendido ninguna palabra",
-    "knowTranslation": "deberías conocer la traducción :)"
+    "knowTranslation": "deberías conocer la traducción :)",
+    "count": "Has aprendido: {count, plural, one {# palabra} other {# palabras}}!",
+    "confirmReset": "¿Estás seguro?"
   },
   "cards": {
     "goBack": "Volver",

@@ -10,6 +10,7 @@ export default function Learned() {
   const t = useTranslations();
   const [learnedArray, setLearnedArray] = useState<any[]>([]);
   const [loading, setLoading] = useState(true)
+  const [confirmingReset, setConfirmingReset] = useState(false)
 
   useEffect(() => {
     const stored = localStorage.getItem("learnedCards");
@@ -27,10 +28,18 @@ export default function Learned() {
     setLearnedArray([]);
   }
 
+  const handleResetClick = () => {
+    if (!confirmingReset) {
+      setConfirmingReset(true);
+      return;
+    }
+    resetProgress();
+    setConfirmingReset(false);
+  }
+
   return (
     <div className={styles.page}>
       <Link className={styles.link} href="/">{t('learned.goBack')}</Link>
-      {learnedArray.length > 0 && <button className={styles.progress} onClick={resetProgress}>{t('learned.reset')}</button>}
       {loading ?
         (
           <div className={styles.loadingContainer}>
@@ -44,21 +53,28 @@ export default function Learned() {
         )
         :
         (
-          <div className={styles.cards}>
+          <>
             {learnedArray.length > 0 ?
               (
-                learnedArray.map((word: any, index: number) => (
-                  <div key={index}>
-                    <Card text={word} translateText={t('learned.knowTranslation')} />
+                <>
+                  <h2 className={styles.warning}>{t('learned.count', { count: learnedArray.length })}</h2>
+                  <p className={styles.note}>{t('home.repeatNote')}</p>
+                  <button className={styles.progress} onClick={handleResetClick}>{confirmingReset ? t('learned.confirmReset') : t('learned.reset')}</button>
+                  <div className={styles.cards}>
+                    {learnedArray.map((word: any, index: number) => (
+                      <div key={index}>
+                        <Card text={word} translateText={t('learned.knowTranslation')} />
+                      </div>
+                    ))}
                   </div>
-                ))
+                </>
               )
               :
               (
                 <p className={styles.warning}>{t('learned.empty')}</p>
               )
             }
-          </div>
+          </>
         )}
     </div>
   );
