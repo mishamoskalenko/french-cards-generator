@@ -27,7 +27,7 @@ export const Card = (props: CardProps) => {
             if (!learnedArray.includes(text)) {
                 learnedArray.push(text);
             }
-        } 
+        }
         else {
             learnedArray = learnedArray.filter(item => item !== text);
         }
@@ -46,11 +46,28 @@ export const Card = (props: CardProps) => {
 
     const playSound = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
+
+        const ua = window.navigator.userAgent;
+        const isIOS = /iP(hone|od|ad)/.test(ua);
+        let iosVersion: number | null = null;
+
+        if (isIOS) {
+            const match = ua.match(/OS (\d+)_?(\d+)?_?(\d+)?/);
+            if (match) iosVersion = parseInt(match[1], 10);
+        }
+
+        if (iosVersion !== null && iosVersion >= 18) {
+            const alertShown = localStorage.getItem("iosAlert");
+            if (!alertShown) {
+                alert("On iOS 18, speech synthesis may pronounce French text with an English accent. Downloading a French voice in Settings > Accessibility > Spoken Content > Voices > French may help, but it is not guaranteed to fix the issue.");
+                localStorage.setItem("iosAlert", "true");
+            }
+        }
         const synth = window.speechSynthesis;
         const textSpeech = new SpeechSynthesisUtterance(text);
         textSpeech.lang = "fr-FR";
         synth.speak(textSpeech);
-    }
+    };
 
     return (
         <div className={styles.flipCard} onClick={handleFlip}>
