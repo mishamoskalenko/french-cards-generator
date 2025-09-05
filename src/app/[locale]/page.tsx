@@ -1,7 +1,7 @@
 "use client"
 
 import styles from "./page.module.css";
-import { setCount, setLanguage, setTheme } from "../../store/features/cards/cardsSlice";
+import { setCount, setLanguage, setTheme, setShowTranslation } from "../../store/features/cards/cardsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { useEffect, useState } from "react";
@@ -16,14 +16,17 @@ export default function Home() {
   const countValue = useSelector((state: RootState) => state.cards.count);
   const themeValue = useSelector((state: RootState) => state.cards.theme);
   const languageValue = useSelector((state: RootState) => state.cards.language);
+  const showTranslationCheck = useSelector((state: RootState) => state.cards.isTranslationFirst);
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations();
 
   useEffect(() => {
+    const isTranslationFirst = JSON.parse(localStorage.getItem("isTranslationFirst") || "false") as boolean;
     const savedLanguage = localStorage.getItem("language") || "English";
     dispatch(setLanguage(savedLanguage));
+    dispatch(setShowTranslation(isTranslationFirst));
     setIsLoaded(true)
   }, [])
 
@@ -39,6 +42,11 @@ export default function Home() {
   const handleChangeLanguage = (lang: string) => {
     dispatch(setLanguage(lang));
     localStorage.setItem("language", lang);
+  };
+
+  const handleChangeShowTranslation = (checked: boolean) => {
+    dispatch(setShowTranslation(checked));
+    localStorage.setItem("isTranslationFirst", JSON.stringify(checked));
   };
 
   const toggleLocale = () => {
@@ -81,6 +89,13 @@ export default function Home() {
             />
             <div className={styles.countDisplay}>{countValue}</div>
           </div>
+        </div>
+        <div className={styles.reverseWrapper}>
+          <p className={styles.reverse}>{t('home.showTranslationFirst')}</p>
+          <label className={styles.switch} >
+            <input type="checkbox" checked={showTranslationCheck} onChange={(e) => handleChangeShowTranslation(e.target.checked)} />
+            <span className={`${styles.slider} ${styles.round}`}></span>
+          </label>
         </div>
         <div className={styles.inputGroup}>
           <label className={styles.label}>{t('home.selectLanguage')}</label>

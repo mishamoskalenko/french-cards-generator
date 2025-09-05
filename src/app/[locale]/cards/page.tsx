@@ -11,8 +11,9 @@ import { useTranslations } from "next-intl";
 export default function Cards() {
   const t = useTranslations();
   const [response, setResponse] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const reversed = JSON.parse(localStorage.getItem("isTranslationFirst") || "false") as boolean;
   const cardLength = useSelector((state: RootState) => state.cards.count);
   const cardTheme = useSelector((state: RootState) => state.cards.theme);
   const cardLanguage = useSelector((state: RootState) => state.cards.language);
@@ -22,7 +23,6 @@ export default function Cards() {
     const fetchResponse = async () => {
       try {
         setError(false);
-        setLoading(true);
         const stored = typeof window !== "undefined" ? localStorage.getItem("learnedCards") : null;
         const cardStorage = stored ? JSON.parse(stored).slice(-200) : [];
         const res = await fetch("/api/cards", {
@@ -69,7 +69,7 @@ export default function Cards() {
           <div className={styles.cards}>
             {response.map((word: any, index: number) => (
               <div key={index}>
-                <Card text={word.french} translateText={word[cardLanguage]} />
+                <Card text={word.french} translateText={word[cardLanguage]} reversed={reversed} />
               </div>
             ))}
           </div>

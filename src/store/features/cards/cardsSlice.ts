@@ -4,12 +4,14 @@ interface CardsState {
   count: number;
   theme: string;
   language: string;
+  isTranslationFirst: boolean
 }
 
 const initialState: CardsState = {
   count: 1,
   theme: "",
   language: "English",
+  isTranslationFirst: true
 };
 
 const cardsSlice = createSlice({
@@ -25,8 +27,11 @@ const cardsSlice = createSlice({
     setLanguage: (state, action: PayloadAction<string>) => {
       state.language = action.payload;
     },
+    setShowTranslation: (state, action: PayloadAction<boolean>) => {
+      state.isTranslationFirst = action.payload;
+    },
   },
 });
 
-export const { setCount, setTheme, setLanguage } = cardsSlice.actions;
+export const { setCount, setTheme, setLanguage, setShowTranslation } = cardsSlice.actions;
 export default cardsSlice.reducer;

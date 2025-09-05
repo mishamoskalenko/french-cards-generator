@@ -1,13 +1,14 @@
 {
   "home": {
-    "title": "Bienvenido al Generador de Tarjetas de Francés",
+    "title": "Generador de Tarjetas de Francés",
     "viewLearned": "Ver palabras aprendidas",
     "chooseCount": "Elige la cantidad de tarjetas",
-    "selectLanguage": "Selecciona el idioma de traducción",
-    "chooseTopic": "Puedes escribir un tema o describir brevemente lo que quieres estudiar.",
+    "showTranslationFirst": "Mostrar la traducción primero:",
+    "selectLanguage": "Selecciona el idioma de traducción:",
+    "chooseTopic": "Indica un tema o describe qué quieres repasar:",
     "placeholder": "palabras en tiempo pasado, viajes, comida",
     "go": "Ir",
-    "aiNote": "El contenido generado por IA puede contener errores. Verifica la información",
+    "aiNote": "El contenido generado por IA puede contener errores. Verifica la información.",
     "repeatNote": "La IA usará solo tus últimas 200 palabras aprendidas para evitar repeticiones"
   },
   "learned": {

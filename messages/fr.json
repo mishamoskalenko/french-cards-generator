@@ -1,13 +1,14 @@
 {
   "home": {
-    "title": "Bienvenue dans le Générateur de Cartes de Français",
+    "title": "Générateur de cartes de français",
     "viewLearned": "Voir les mots appris",
     "chooseCount": "Choisissez le nombre de cartes",
-    "selectLanguage": "Sélectionnez la langue de traduction",
-    "chooseTopic": "Vous pouvez écrire un thème ou décrire brièvement ce que vous souhaitez approfondir.",
+    "showTranslationFirst": "Afficher la traduction en premier:",
+    "selectLanguage": "Sélectionnez la langue de traduction:",
+    "chooseTopic": "Indiquez un thème ou décrivez ce que vous souhaitez aborder:",
     "placeholder": "mots au passé, voyages, nourriture",
     "go": "Aller",
-    "aiNote": "Le contenu généré par l'IA peut contenir des erreurs. Veuillez vérifier les informations",
+    "aiNote": "Le contenu IA peut comporter des erreurs. Veuillez vérifier.",
     "repeatNote": "L’IA n’utilisera que vos 200 derniers mots appris afin d’éviter les répétitions"
   },
   "learned": {

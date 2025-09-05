@@ -63,6 +63,9 @@
   align-items: center;
   gap: 8px;
   margin-bottom: 32px;
+  white-space: normal;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .link:hover {

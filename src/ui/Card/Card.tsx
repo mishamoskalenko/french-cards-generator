@@ -6,10 +6,11 @@ import styles from './Card.module.css';
 interface CardProps {
     translateText: string;
     text: string;
+    reversed?: boolean
 }
 
 export const Card = (props: CardProps) => {
-    const { text, translateText } = props;
+    const { text, translateText, reversed } = props;
 
     const [flipped, setFlipped] = useState(false);
     const [learned, setLearned] = useState(false);
@@ -69,17 +70,36 @@ export const Card = (props: CardProps) => {
         synth.speak(textSpeech);
     };
 
+    const content = (
+        <>
+            <div className={`${styles.flipCardFront} ${learned ? styles.learned : ''}`}>
+                {text}
+                <button className={styles.sound} onClick={playSound}>🔊</button>
+                <button className={styles.learnedText} onClick={handleLearn}>{learned ? "✅" : "❌"}</button>
+            </div>
+            <div className={styles.flipCardBack}>
+                {translateText}
+            </div>
+        </>
+    )
+
+    const reversedContent = (
+        <>
+            <div className={`${styles.flipCardFront} ${styles.reversedCardFront}`}>
+                {translateText}
+            </div>
+            <div className={`${styles.flipCardBack} ${learned ? styles.learned : ''} ${styles.reversedCardBack}`}>
+                {text}
+                <button className={styles.sound} onClick={playSound}>🔊</button>
+                <button className={styles.learnedText} onClick={handleLearn}>{learned ? "✅" : "❌"}</button>
+            </div>
+        </>
+    )
+
     return (
         <div className={styles.flipCard} onClick={handleFlip}>
             <div className={`${styles.flipCardInner} ${flipped ? styles.flipped : ''} ${learned ? styles.learned : ''}`}>
-                <div className={`${styles.flipCardFront} ${learned ? styles.learned : ''}`}>
-                    {text}
-                    <button className={styles.sound} onClick={playSound}>🔊</button>
-                    <button className={styles.learnedText} onClick={handleLearn}>{learned ? "✅" : "❌"}</button>
-                </div>
-                <div className={styles.flipCardBack}>
-                    {translateText}
-                </div>
+                {reversed ? reversedContent : content}
             </div>
         </div>
     );

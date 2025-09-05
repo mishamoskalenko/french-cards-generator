@@ -61,6 +61,14 @@
   z-index: 1;
 }
 
+.reversedCardFront{
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.reversedCardBack{
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
 .learned{
   background: linear-gradient(135deg, #bcff4fb9 0%, #3ea502 100%);
 }
@@ -111,7 +119,3 @@
   z-index: 3;
 }
 
-.flipCardInner.flipped .sound {
-  opacity: 0;
-  pointer-events: none;
-}
