@@ -3,7 +3,7 @@
 AI-powered flashcards to learn French vocabulary with instant translations. Choose how many cards to generate, pick a topic, select a translation language, switch the UI locale, and study with flip cards, pronunciation, and a simple progress marker.
 
 ### Features
-- **AI word generation**: Groq `openai/gpt-oss-120b` generates themed word lists
+- **AI word generation**: Mistral AI or GPT model (switchable) generates themed word lists
 - **Duplicate avoidance**: Excludes up to last 200 learned French words from generation
 - **Multiple translations**: English, Українська, Deutsch, Español
 - **Localized UI**: en, fr, es, de, uk; quick toggle from the home page
@@ -31,13 +31,16 @@ AI-powered flashcards to learn French vocabulary with instant translations. Choo
 
 ### Prerequisites
 - Node.js 18+ and npm
-- A Groq API key: create one in your Groq account dashboard
+- Mistral and/or Groq API keys
 
 ### Environment Variables
 Create a `.env.local` at the project root:
 ```bash
+LLM_PROVIDER=mistral
+MISTRAL_API_KEY=your_mistral_api_key
 GROQ_API_KEY=your_groq_api_key
 ```
+Provider is selected via `LLM_PROVIDER` (`mistral`or `groq`). Default is `mistral`.
 
 ### Development
 ```bash
@@ -57,7 +60,7 @@ Open http://localhost:3000 in your browser.
 
 - `POST /api/cards`
   - Body: `{ count: number, theme: string, language: "English|Українська|Deutsch|Español", storage: string[] }`
-  - Behavior: Uses Groq to generate words; excludes items from `storage` (up to 200) to avoid duplicates
+  - Behavior: Uses selected provider (from `LLM_PROVIDER`) to generate words; excludes items from `storage` (up to 200) to avoid duplicates
   - Response: JSON array like `[{ "french": "bonjour", "English": "hello" }]`
 
 ---

@@ -13,7 +13,7 @@ export default function Cards() {
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const reversed = JSON.parse(localStorage.getItem("isTranslationFirst") || "false") as boolean;
+  const reversed = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("isTranslationFirst") || "false") as boolean : false;
   const cardLength = useSelector((state: RootState) => state.cards.count);
   const cardTheme = useSelector((state: RootState) => state.cards.theme);
   const cardLanguage = useSelector((state: RootState) => state.cards.language);
@@ -37,7 +37,6 @@ export default function Cards() {
         }
 
         const data = await res.json();
-        console.log(data);
         setResponse(data);
       }
       finally {
