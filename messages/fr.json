@@ -31,5 +31,6 @@
     "de": "Deutsch",
     "uk": "Українська",
     "fr": "Français"
-  }
+  },
+  "IOS18Alert": "Sur iOS 18, le texte français peut être prononcé avec un accent anglais. Téléchargez une voix française dans Réglages > Accessibilité > Contenu énoncé > Voix > Français pour corriger cela."
 }

@@ -61,7 +61,7 @@ Open http://localhost:3000 in your browser.
 - `POST /api/cards`
   - Body: `{ count: number, theme: string, language: "English|Українська|Deutsch|Español", storage: string[] }`
   - Behavior: Uses selected provider (from `LLM_PROVIDER`) to generate words; excludes items from `storage` (up to 200) to avoid duplicates
-  - Response: JSON array like `[{ "french": "bonjour", "English": "hello" }]`
+  - Response: JSON array like `[{ "french": "bonjour", "translated": "hello" }]`
 
 ---
 

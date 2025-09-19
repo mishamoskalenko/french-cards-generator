@@ -18,7 +18,6 @@ export default function Cards() {
   const cardTheme = useSelector((state: RootState) => state.cards.theme);
   const cardLanguage = useSelector((state: RootState) => state.cards.language);
 
-
   useEffect(() => {
     const fetchResponse = async () => {
       try {
@@ -30,12 +29,10 @@ export default function Cards() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ count: cardLength, theme: cardTheme, language: cardLanguage, storage: cardStorage }),
         });
-
         if (!res.ok) {
           setError(true)
           return;
         }
-
         const data = await res.json();
         setResponse(data);
       }
@@ -68,7 +65,7 @@ export default function Cards() {
           <div className={styles.cards}>
             {response.map((word: any, index: number) => (
               <div key={index}>
-                <Card text={word.french} translateText={word[cardLanguage]} reversed={reversed} />
+                <Card text={word.french} translateText={word.translated} reversed={reversed} />
               </div>
             ))}
           </div>

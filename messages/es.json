@@ -31,5 +31,6 @@
     "de": "Deutsch",
     "uk": "Українська",
     "fr": "Français"
-  }
+  },
+  "IOS18Alert": "En iOS 18, el texto en francés puede sonar con acento inglés. Descarga una voz en francés en Ajustes > Accesibilidad > Contenido hablado > Voces > Francés para solucionarlo."
 }

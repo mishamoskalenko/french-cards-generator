@@ -31,5 +31,6 @@
     "de": "Deutsch",
     "uk": "Українська",
     "fr": "Français"
-  }
+  },
+  "IOS18Alert": "On iOS 18, French text may be spoken with an English accent. Download a French voice in Settings > Accessibility > Spoken Content > Voices > French to fix it."
 }

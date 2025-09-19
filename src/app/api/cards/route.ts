@@ -10,7 +10,7 @@ export async function POST(req: Request) {
         const provider = ( process.env.LLM_PROVIDER || "mistral").toLowerCase();
         const exclude: string[] = Array.isArray(storage) ? storage.slice(-200) : [];
         const exclusionList = JSON.stringify(exclude);
-        const prompt = `Generate ${count} French words with ${language} translations on the topic of ${theme}. Do NOT include any word from the following exclusion list (French, case- and accent-insensitive match): ${exclusionList}. Return ONLY valid JSON array, like this:[{ "french": "bonjour", "${language}": "word in ${language}" }, ...] Do NOT add any explanations, text, or markdown (no json, no comments).`;
+        const prompt = `Generate ${count} French words with ${language} translations on the topic of ${theme}. Do NOT include any word from the following exclusion list (French, case- and accent-insensitive match): ${exclusionList}. Return ONLY valid JSON array, like this:[{ "french": "bonjour", "translated": "word in ${language}" }, ...] Do NOT add any explanations, text, or markdown (no json, no comments).`;
 
         if (provider === "mistral") {
             const chatResponse = await mistral.chat.complete({

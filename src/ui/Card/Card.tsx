@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import styles from './Card.module.css';
+import { useTranslations } from 'next-intl';
 
 interface CardProps {
     translateText: string;
@@ -11,6 +12,7 @@ interface CardProps {
 
 export const Card = (props: CardProps) => {
     const { text, translateText, reversed } = props;
+      const t = useTranslations();
 
     const [flipped, setFlipped] = useState(false);
     const [learned, setLearned] = useState(false);
@@ -60,7 +62,7 @@ export const Card = (props: CardProps) => {
         if (iosVersion !== null && iosVersion >= 18) {
             const alertShown = localStorage.getItem("iosAlert");
             if (!alertShown) {
-                alert("On iOS 18, speech synthesis may pronounce French text with an English accent. Downloading a French voice in Settings > Accessibility > Spoken Content > Voices > French may help, but it is not guaranteed to fix the issue.");
+                alert(t("IOS18Alert"));
                 localStorage.setItem("iosAlert", "true");
             }
         }

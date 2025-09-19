@@ -31,5 +31,6 @@
     "de": "Deutsch",
     "uk": "Українська",
     "fr": "Français"
-  }
+  },
+  "IOS18Alert": "Unter iOS 18 kann französischer Text mit englischem Akzent vorgelesen werden. Lade unter Einstellungen > Bedienungshilfen > Gesprochener Inhalt > Stimmen > Französisch eine französische Stimme herunter, um das zu beheben."
 }
