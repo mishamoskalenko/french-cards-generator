@@ -79,7 +79,7 @@ export default function Cards() {
 
   return (
     <div className={styles.page}>
-      <Link className={styles.link} href="/">{t('cards.goBack')}</Link>
+      <Link className={styles.link} href="/generator">{t('cards.goBack')}</Link>
       {error &&
         <p>{t('cards.error')}</p>
       }
