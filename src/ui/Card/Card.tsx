@@ -3,49 +3,55 @@
 import { useEffect, useState } from 'react';
 import styles from './Card.module.css';
 import { useTranslations } from 'next-intl';
+import { supabase } from '@/lib/supabaseClient';
 
 interface CardProps {
     translateText: string;
     text: string;
-    reversed?: boolean
+    reversed?: boolean;
+    initialLearned?: boolean;
 }
 
 export const Card = (props: CardProps) => {
-    const { text, translateText, reversed } = props;
-      const t = useTranslations();
+    const { text, translateText, reversed, initialLearned = false } = props;
+    const t = useTranslations();
 
     const [flipped, setFlipped] = useState(false);
-    const [learned, setLearned] = useState(false);
+    const [learned, setLearned] = useState(initialLearned);
 
     const handleFlip = () => setFlipped(!flipped);
-    const handleLearn = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleLearn = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         const newLearned = !learned;
         setLearned(newLearned);
 
-        const stored = localStorage.getItem("learnedCards");
-        let learnedArray: string[] = stored ? JSON.parse(stored) : [];
-
         if (newLearned) {
-            if (!learnedArray.includes(text)) {
-                learnedArray.push(text);
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                const { error } = await supabase
+                    .from('cards')
+                    .insert([
+                        {
+                            french_word: text,
+                            user_id: user.id
+                        }
+                    ]);
+                if (error) {
+                    console.error("Error saving:", error.message);
+                }
             }
         }
         else {
-            learnedArray = learnedArray.filter(item => item !== text);
-        }
+            const { error } = await supabase
+                .from('cards')
+                .delete()
+                .eq('french_word', text);
 
-        localStorage.setItem("learnedCards", JSON.stringify(learnedArray));
+            if (error) {
+                console.error("Error deleting:", error.message);
+            }
+        }
     }
-
-    useEffect(() => {
-        const stored = localStorage.getItem("learnedCards");
-        const learnedArray: string[] = stored ? JSON.parse(stored) : [];
-
-        if (learnedArray.includes(text)) {
-            setLearned(true);
-        }
-    }, [text]);
 
     const playSound = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();

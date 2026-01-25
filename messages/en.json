@@ -1,4 +1,9 @@
 {
+  "welcome": {
+    "title": "French Cards Generator",
+    "subtitle": "Expand your vocabulary instantly. Whether for a trip or an exam, get the words you need in seconds.",
+    "login": "Login to save progress"
+  },
   "home": {
     "title": "French Cards Generator",
     "viewLearned": "View learned words",

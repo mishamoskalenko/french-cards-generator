@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/store';
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { supabase } from "@/lib/supabaseClient";
 
 export default function Cards() {
   const t = useTranslations();
@@ -22,8 +23,20 @@ export default function Cards() {
     const fetchResponse = async () => {
       try {
         setError(false);
-        const stored = typeof window !== "undefined" ? localStorage.getItem("learnedCards") : null;
-        const cardStorage = stored ? JSON.parse(stored).slice(-200) : [];
+        const { data: { user } } = await supabase.auth.getUser();
+        let cardStorage: string[] = [];
+
+        if (user) {
+          const { data: learnedData } = await supabase
+            .from('cards')
+            .select('french_word')
+            .eq('user_id', user.id)
+            .limit(200);
+
+          if (learnedData) {
+            cardStorage = learnedData.map(item => item.french_word);
+          }
+        }
         const res = await fetch("/api/cards", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -34,7 +47,28 @@ export default function Cards() {
           return;
         }
         const data = await res.json();
-        setResponse(data);
+
+        const newWords = data.map((item: any) => item.french);
+        const learnedSet = new Set();
+
+        if (user && newWords.length > 0) {
+          const { data: existingCards } = await supabase
+            .from('cards')
+            .select('french_word')
+            .eq('user_id', user.id)
+            .in('french_word', newWords);
+
+          if (existingCards) {
+            existingCards.forEach((c: any) => learnedSet.add(c.french_word));
+          }
+        }
+
+        const enrichedData = data.map((item: any) => ({
+          ...item,
+          isLearned: learnedSet.has(item.french)
+        }));
+
+        setResponse(enrichedData);
       }
       finally {
         setLoading(false);
@@ -64,8 +98,13 @@ export default function Cards() {
         (
           <div className={styles.cards}>
             {response.map((word: any, index: number) => (
-              <div key={index}>
-                <Card text={word.french} translateText={word.translated} reversed={reversed} />
+              <div key={word.french}>
+                <Card 
+                  text={word.french} 
+                  translateText={word.translated} 
+                  reversed={reversed}
+                  initialLearned={word.isLearned}
+                />
               </div>
             ))}
           </div>

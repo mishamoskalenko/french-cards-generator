@@ -5,6 +5,7 @@ import { Providers } from "../../store/Providers";
 import { Analytics } from "@vercel/analytics/next"
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +38,7 @@ export default async function RootLayout({
         <html lang={locale}>
           <body className={`${geistSans.variable} ${geistMono.variable}`}>
             {children}
+            <Script src="https://accounts.google.com/gsi/client" async></Script>
             <Analytics />
           </body>
         </html>

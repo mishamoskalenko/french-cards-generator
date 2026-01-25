@@ -9,8 +9,9 @@ AI-powered flashcards to learn French vocabulary with instant translations. Choo
 - **Localized UI**: en, fr, es, de, uk; quick toggle from the home page
 - **Interactive cards**: Flip to reveal translation, mark as learned, and play French pronunciation (ResponsiveVoice)
 - **Learned page**: Review learned words, see count, and reset progress
-- **Local persistence**: `localStorage` for learned words and preferred translation language
-- **Modern stack**: Next.js 15, React 19, Redux Toolkit, TypeScript, next-intl, Vercel Analytics
+- **Authentication**: Supabase Auth integration for route protection
+- **Persistence**: Supabase for learned words history; `localStorage` for UI preferences
+- **Modern stack**: Next.js 15, React 19, Redux Toolkit, TypeScript, next-intl, Supabase, Vercel Analytics
 ---
 
 ## Usage
@@ -32,6 +33,7 @@ AI-powered flashcards to learn French vocabulary with instant translations. Choo
 ### Prerequisites
 - Node.js 18+ and npm
 - Mistral and/or Groq API keys
+- Supabase project
 
 ### Environment Variables
 Create a `.env.local` at the project root:
@@ -39,6 +41,9 @@ Create a `.env.local` at the project root:
 LLM_PROVIDER=mistral
 MISTRAL_API_KEY=your_mistral_api_key
 GROQ_API_KEY=your_groq_api_key
+
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 Provider is selected via `LLM_PROVIDER` (`mistral`or `groq`). Default is `mistral`.
 

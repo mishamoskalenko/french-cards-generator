@@ -1,4 +1,9 @@
 {
+  "welcome": {
+    "title": "French Cards Generator",
+    "subtitle": "Enrichissez votre vocabulaire instantanément. Que ce soit pour un voyage ou un examen, obtenez les mots dont vous avez besoin en quelques secondes.",
+    "login": "Connectez-vous pour sauvegarder votre progression"
+  },
   "home": {
     "title": "Générateur de cartes de français",
     "viewLearned": "Voir les mots appris",

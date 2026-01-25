@@ -1,132 +1,104 @@
 "use client"
-
+import { supabase } from "@/lib/supabaseClient";
 import styles from "./page.module.css";
-import { setCount, setLanguage, setTheme, setShowTranslation } from "../../store/features/cards/cardsSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRouter, usePathname } from "@/i18n/navigation";
+import { useTranslations, useLocale } from "next-intl";
 import Image from "next/image";
-import { Link, usePathname, useRouter } from "@/i18n/navigation";
-import { useLocale, useTranslations } from "next-intl";
 
 
-export default function Home() {
-  const dispatch = useDispatch<AppDispatch>();
-  const [isLoaded, setIsLoaded] = useState(false);
-  const countValue = useSelector((state: RootState) => state.cards.count);
-  const themeValue = useSelector((state: RootState) => state.cards.theme);
-  const languageValue = useSelector((state: RootState) => state.cards.language);
-  const showTranslationCheck = useSelector((state: RootState) => state.cards.isTranslationFirst);
-  const router = useRouter();
-  const pathname = usePathname();
-  const locale = useLocale();
-  const t = useTranslations();
+interface GoogleCredentialResponse {
+    credential: string;
+}
 
-  useEffect(() => {
-    const isTranslationFirst = JSON.parse(localStorage.getItem("isTranslationFirst") || "false") as boolean;
-    const savedLanguage = localStorage.getItem("language") || "English";
-    dispatch(setLanguage(savedLanguage));
-    dispatch(setShowTranslation(isTranslationFirst));
-    setIsLoaded(true)
-  }, [])
-
-  const handleChangeCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const number = Number(e.target.value);
-    dispatch(setCount(number));
-  };
-
-  const handleChangeTheme = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setTheme(e.target.value));
-  };
-
-  const handleChangeLanguage = (lang: string) => {
-    dispatch(setLanguage(lang));
-    localStorage.setItem("language", lang);
-  };
-
-  const handleChangeShowTranslation = (checked: boolean) => {
-    dispatch(setShowTranslation(checked));
-    localStorage.setItem("isTranslationFirst", JSON.stringify(checked));
-  };
-
-  const toggleLocale = () => {
-    const locales = ["en", "fr", "es", "de", "uk"];
-    const currentIndex = locales.indexOf(locale);
-    const nextLocale = locales[(currentIndex + 1) % locales.length];
-    router.replace(pathname, { locale: nextLocale });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (themeValue.trim()) {
-      router.push('/cards');
+declare global {
+    interface Window {
+        google: any;
     }
-  };
+}
 
-  if (!isLoaded) {
-    return null
-  }
+export default function Welcome() {
+    const t = useTranslations('welcome');
+    const tLang = useTranslations('lang');
+    const router = useRouter();
+    const pathname = usePathname();
+    const locale = useLocale();
 
-  return (
-    <div className={styles.page}>
-      <div className={styles.card}>
-        <button className={styles.language} onClick={toggleLocale}>
-          <Image src="/language.svg" width={30} height={30} alt="language" />
-          <span className={styles.languageText}>{t(`lang.${locale}`)}</span>
-        </button>
-        <h1 className={styles.title}>{t('home.title')}</h1>
-        <Link href="/learned" className={styles.learnedLink}>{t('home.viewLearned')}</Link>
-        <div className={styles.inputGroup}>
-          <label className={styles.label}>{t('home.chooseCount')}</label>
-          <div className={styles.rangeContainer}>
-            <input
-              type="range"
-              className={styles.rangeInput}
-              value={countValue}
-              onChange={handleChangeCount}
-              min="1"
-              max="20"
-            />
-            <div className={styles.countDisplay}>{countValue}</div>
-          </div>
+    const toggleLocale = () => {
+        const locales = ["en", "fr", "es", "de", "uk"];
+        const currentIndex = locales.indexOf(locale);
+        const nextLocale = locales[(currentIndex + 1) % locales.length];
+        router.replace(pathname, { locale: nextLocale });
+    };
+
+    useEffect(() => {
+        const handleCredentialResponse = async (response: GoogleCredentialResponse) => {
+            const { data, error } = await supabase.auth.signInWithIdToken({
+                provider: 'google',
+                token: response.credential,
+            });
+
+            if (error) {
+                console.error(error.message);
+            }
+            else {
+                router.push('/generator')
+            }
+        };
+
+        const initializeGoogleSignIn = () => {
+            if (window.google && window.google.accounts) {
+                window.google.accounts.id.initialize({
+                    client_id: "544777769839-m26jn35rugh9tr8esjm4952efocdkkj1.apps.googleusercontent.com",
+                    callback: handleCredentialResponse,
+                    use_fedcm_for_prompt: true
+                });
+
+                const buttonDiv = document.getElementById("buttonDiv");
+                if (buttonDiv) {
+                    window.google.accounts.id.renderButton(
+                        buttonDiv,
+                        {
+                            type: "standard",
+                            shape: "pill",
+                            theme: "outline",
+                            text: "continue_with",
+                            size: "large",
+                            logo_alignment: "left"
+                        }
+                    );
+                }
+            }
+        };
+
+        if (window.google?.accounts) {
+            initializeGoogleSignIn();
+        } else {
+            const interval = setInterval(() => {
+                if (window.google?.accounts) {
+                    initializeGoogleSignIn();
+                    clearInterval(interval);
+                }
+            }, 100);
+            return () => clearInterval(interval);
+        }
+    }, []);
+
+
+    return (
+        <div className={styles.page}>
+            <div className={styles.card}>
+                <button className={styles.language} onClick={toggleLocale}>
+                    <Image src="/language.svg" width={30} height={30} alt="language" />
+                    <span className={styles.languageText}>{tLang(locale)}</span>
+                </button>
+                <h1 className={styles.title}>{t('title')}</h1>
+                <p className={styles.subtitle}>{t('subtitle')}</p>
+                <div className={styles.loginContainer}>
+                    <p className={styles.loginText}>{t('login')}</p>
+                    <div id="buttonDiv" style={{ display: 'flex', justifyContent: 'center' }}></div>
+                </div>
+            </div>
         </div>
-        <div className={styles.reverseWrapper}>
-          <p className={styles.reverse}>{t('home.showTranslationFirst')}</p>
-          <label className={styles.switch} >
-            <input type="checkbox" checked={showTranslationCheck} onChange={(e) => handleChangeShowTranslation(e.target.checked)} />
-            <span className={`${styles.slider} ${styles.round}`}></span>
-          </label>
-        </div>
-        <div className={styles.inputGroup}>
-          <label className={styles.label}>{t('home.selectLanguage')}</label>
-          <div className={styles.languages}>
-            {["English", "Українська", "Deutsch", "Español"].map((lang) => (
-              <button
-                key={lang}
-                className={languageValue === lang ? styles.activeButton : styles.textInput}
-                onClick={() => handleChangeLanguage(lang)}
-              >
-                {lang}
-              </button>
-            ))}
-          </div>
-        </div>
-        <form onSubmit={handleSubmit}>
-          <div className={styles.inputGroup}>
-            <label className={styles.label}>{t('home.chooseTopic')}</label>
-            <input
-              required
-              type="text"
-              className={styles.textInput}
-              value={themeValue}
-              onChange={handleChangeTheme}
-              placeholder={t('home.placeholder')}
-            />
-            <button type="submit" className={styles.link}>{t('home.go')}</button>
-          </div>
-        </form>
-        <p className={styles.labelAi}>{t('home.aiNote')}</p>
-      </div>
-    </div>
-  );
+    );
 }

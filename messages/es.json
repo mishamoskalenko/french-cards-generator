@@ -1,4 +1,9 @@
 {
+  "welcome": {
+    "title": "French Cards Generator",
+    "subtitle": "Amplía tu vocabulario al instante. Ya sea para un viaje o un examen, obtén las palabras que necesitas en segundos.",
+    "login": "Inicia sesión para guardar el progreso"
+  },
   "home": {
     "title": "Generador de Tarjetas de Francés",
     "viewLearned": "Ver palabras aprendidas",
