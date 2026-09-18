@@ -14,12 +14,13 @@ export default function Cards() {
   const [response, setResponse] = useState([]);
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const reversed = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("isTranslationFirst") || "false") as boolean : false;
   const cardLength = useSelector((state: RootState) => state.cards.count);
   const cardTheme = useSelector((state: RootState) => state.cards.theme);
   const cardLanguage = useSelector((state: RootState) => state.cards.language);
+  const [reversed, setReversed] = useState(false);
 
   useEffect(() => {
+    setReversed(typeof window !== "undefined" ? JSON.parse(localStorage.getItem("isTranslationFirst") || "false") as boolean : false);
     const fetchResponse = async () => {
       try {
         setError(false);

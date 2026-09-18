@@ -124,6 +124,64 @@
     box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
 }
 
+.selectWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select {
+    width: 100%;
+    padding: 16px 45px 16px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.95);
+    font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    line-height: 1.5;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+}
+
+.select:hover {
+    background: #ffffff;
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.select:focus {
+    background: #ffffff;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+}
+
+.selectWrapper::after {
+    content: "";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-65%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    border-right: 2.5px solid #667eea;
+    border-bottom: 2.5px solid #667eea;
+    pointer-events: none;
+    transition: transform 0.2s ease;
+}
+
+.select option {
+    background-color: #ffffff;
+    color: #333;
+    font-size: 16px;
+    padding: 12px;
+}
+
 .languages{
     display: grid;
     grid-template-columns: repeat(2, 1fr);

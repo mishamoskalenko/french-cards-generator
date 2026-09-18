@@ -49,7 +49,7 @@ export default function Welcome() {
         const initializeGoogleSignIn = () => {
             if (window.google && window.google.accounts) {
                 window.google.accounts.id.initialize({
-                    client_id: "544777769839-m26jn35rugh9tr8esjm4952efocdkkj1.apps.googleusercontent.com",
+                    client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
                     callback: handleCredentialResponse,
                     use_fedcm_for_prompt: true
                 });

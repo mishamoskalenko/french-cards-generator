@@ -24,6 +24,28 @@ export default function Generator() {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations();
+  const languages = {
+    de: "Deutsch",
+    en: "English",
+    es: "Español",
+    it: "Italiano",
+    nl: "Nederlands",
+    pt: "Português",
+    ru: "Русский",
+    ar: "العربية",
+    cs: "Čeština",
+    hi: "हिन्दी",
+    id: "Bahasa Indonesia",
+    ja: "日本語",
+    ko: "한국어",
+    pl: "Polski",
+    ro: "Română",
+    sv: "Svenska",
+    tr: "Türkçe",
+    uk: "Українська",
+    vi: "Tiếng Việt",
+    zh: "中文"
+  };
 
   useEffect(() => {
     const isTranslationFirst = JSON.parse(localStorage.getItem("isTranslationFirst") || "false") as boolean;
@@ -115,17 +137,21 @@ export default function Generator() {
           </label>
         </div>
         <div className={styles.inputGroup}>
-          <label className={styles.label}>{t('home.selectLanguage')}</label>
-          <div className={styles.languages}>
-            {["English", "Українська", "Deutsch", "Español"].map((lang) => (
-              <button
-                key={lang}
-                className={languageValue === lang ? styles.activeButton : styles.textInput}
-                onClick={() => handleChangeLanguage(lang)}
-              >
-                {lang}
-              </button>
-            ))}
+          <label className={styles.label} htmlFor="language-picker">{t('home.selectLanguage')}</label>
+          <div className={styles.selectWrapper}>
+            <select
+              id="language-picker"
+              name="languages"
+              className={styles.select}
+              value={languageValue}
+              onChange={(e) => handleChangeLanguage(e.target.value)}
+            >
+              {Object.entries(languages).map(([key, lang]) => (
+                <option key={key} value={lang}>
+                  {lang}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <form onSubmit={handleSubmit}>
